@@ -1,0 +1,130 @@
+
+.card-wrapper {
+    margin: 5% 0;
+}
+
+/* Celebrity image size */
+.custom-circle-image {
+    width: 10vw;
+    height: 10vw;
+}
+
+.custom-circle-image img {
+    object-fit: cover;
+}
+
+.card-title {
+    letter-spacing: 1.1px;
+}
+
+.card-text {
+    font-family: MerriweatherRegular;
+    font-size: 22px;
+    line-height: initial;
+}
+
+.dropzone{
+    border:2px dashed #38bdf8;
+    border-radius:15px;
+    background:transparent;
+    min-height:180px;
+    padding:20px;
+}
+
+/* ERROR BOX */
+.error {
+    display: none;
+    margin-top: 20px;
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid #ef4444;
+    padding: 15px;
+    border-radius: 12px;
+    color: white;
+    text-align: center;
+}
+
+/* PREDICTION CARD */
+.prediction-card {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.5s ease;
+}
+
+.prediction-card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #38bdf8;
+    margin-bottom: 20px;
+}
+
+.prediction-card h2 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.prediction-card p {
+    color: #cbd5e1;
+    font-size: 1.1rem;
+}
+
+/* FADE ANIMATION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* TABLE */
+#classTable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#classTable td,
+#classTable th {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    color: white;
+}
+
+#classTable th {
+    background: #38bdf8;
+    color: #0f172a;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#classTable tr {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#classTable tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transition: 0.2s;
+}
+
+/* HOVER EFFECT FOR CARDS */
+.celebrity-card {
+    transition: 0.3s ease;
+}
+
+.celebrity-card:hover {
+    transform: scale(1.05);
+}

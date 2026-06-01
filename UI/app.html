@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Celebrity Classifier</title>
+
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="./dropzone.min.css">
+
+    <style>
+
+        body{
+            background: linear-gradient(135deg,#0f172a,#1e293b);
+            min-height:100vh;
+            font-family: 'Segoe UI', sans-serif;
+            color:white;
+        }
+
+        .main-title{
+            font-size:3rem;
+            font-weight:700;
+            text-align:center;
+            margin-top:40px;
+            margin-bottom:10px;
+        }
+
+        .subtitle{
+            text-align:center;
+            color:#cbd5e1;
+            margin-bottom:50px;
+        }
+
+        .card-wrapper{
+            transition:0.3s;
+            margin-bottom:20px;
+        }
+
+        .card-wrapper:hover{
+            transform:translateY(-8px);
+        }
+
+        .celebrity-card{
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border-radius:20px;
+            padding:20px;
+            text-align:center;
+            border:1px solid rgba(255,255,255,0.1);
+            height:100%;
+        }
+
+        .celebrity-card img{
+            width:120px;
+            height:120px;
+            object-fit:cover;
+            border-radius:50%;
+            border:4px solid white;
+        }
+
+        .celebrity-card h4{
+            margin-top:20px;
+            font-size:1.1rem;
+            font-weight:600;
+        }
+
+        .upload-section{
+            background: rgba(255,255,255,0.08);
+            padding:30px;
+            border-radius:20px;
+            margin-top:50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropzone{
+            border:2px dashed #38bdf8;
+            border-radius:15px;
+            background:transparent;
+        }
+
+        #submitBtn{
+            width:100%;
+            margin-top:20px;
+            border-radius:12px;
+            padding:12px;
+            font-size:18px;
+            font-weight:600;
+        }
+
+        #resultHolder{
+            margin-top:30px;
+        }
+
+        /* ERROR */
+        .error{
+            display:none;
+            margin-top:20px;
+            background:rgba(239,68,68,0.15);
+            border:1px solid #ef4444;
+            padding:15px;
+            border-radius:12px;
+            color:white;
+            text-align:center;
+        }
+
+        /* PREDICTION CARD */
+        .prediction-card{
+            margin:30px auto;
+            max-width:400px;
+            background:rgba(255,255,255,0.08);
+            border-radius:20px;
+            padding:30px;
+            text-align:center;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .prediction-card img{
+            width:150px;
+            height:150px;
+            object-fit:cover;
+            border-radius:50%;
+            border:5px solid #38bdf8;
+            margin-bottom:20px;
+        }
+
+        .prediction-card h2{
+            font-size:2rem;
+            font-weight:700;
+        }
+
+        .prediction-card p{
+            color:#cbd5e1;
+            font-size:1.1rem;
+        }
+
+        @keyframes fadeIn{
+            from{
+                opacity:0;
+                transform:translateY(20px);
+            }
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* TABLE */
+        #classTable{
+            display:none;
+            width:100%;
+            margin-top:20px;
+            border-collapse: collapse;
+            overflow:hidden;
+            border-radius:15px;
+        }
+
+        #classTable th{
+            background:#38bdf8;
+            color:#0f172a;
+            padding:15px;
+            font-weight:700;
+        }
+
+        #classTable td{
+            padding:12px;
+            background:rgba(255,255,255,0.08);
+            border-bottom:1px solid rgba(255,255,255,0.1);
+            color:white;
+        }
+
+        #classTable tr:hover{
+            background:rgba(255,255,255,0.12);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container py-5">
+
+        <h1 class="main-title">AI Celebrity Classifier</h1>
+
+        <p class="subtitle">
+            Upload an image and let AI identify the celebrity
+        </p>
+
+        <!-- CELEBRITY CARDS -->
+        <div class="row justify-content-center text-center">
+
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 card-wrapper d-flex justify-content-center">
+                <div class="celebrity-card">
+                    <img src="./images/elon_musk.jpg">
+                    <h4>Elon Musk</h4>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 card-wrapper d-flex justify-content-center">
+                <div class="celebrity-card">
+                    <img src="./images/angelina_jolie.jpg">
+                    <h4>Angelina Jolie</h4>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 card-wrapper d-flex justify-content-center">
+                <div class="celebrity-card">
+                    <img src="./images/cristiano_ronaldo.jpg">
+                    <h4>Cristiano Ronaldo</h4>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 card-wrapper d-flex justify-content-center">
+                <div class="celebrity-card">
+                    <img src="./images/taylor_swift.jpg">
+                    <h4>Taylor Swift</h4>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 card-wrapper d-flex justify-content-center">
+                <div class="celebrity-card">
+                    <img src="./images/tom_cruise.jpg">
+                    <h4>Tom Cruise</h4>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- UPLOAD -->
+        <div class="upload-section">
+
+            <form action="/file-upload" class="dropzone" id="dropzone">
+                <div class="dz-message needsclick">
+
+                    <img src="./images/upload.png" width="45">
+
+                    <h6 class="mt-2">Drag & Drop Image</h6>
+                    <span>or click to upload</span>
+
+                </div>
+            </form>
+
+            <button id="submitBtn" type="button" class="btn btn-info">
+                Classify Image
+            </button>
+
+            <div class="error" id="error">
+                Can't classify image properly.
+            </div>
+
+            <div id="resultHolder"></div>
+
+            <!-- PREDICTION CARD -->
+            <div id="predictionCard" class="prediction-card" style="display:none;">
+
+                <img id="predictionImage" src="" alt="Prediction">
+
+                <h2 id="predictionName"></h2>
+
+                <p id="predictionConfidence"></p>
+
+            </div>
+
+            <!-- TABLE -->
+            <table id="classTable">
+                <tr>
+                    <th>Celebrity</th>
+                    <th>Confidence</th>
+                </tr>
+
+                <tr>
+                    <td>Elon Musk</td>
+                    <td id="score_elon_musk"></td>
+                </tr>
+
+                <tr>
+                    <td>Angelina Jolie</td>
+                    <td id="score_angelina_jolie"></td>
+                </tr>
+
+                <tr>
+                    <td>Cristiano Ronaldo</td>
+                    <td id="score_cristiano_ronaldo"></td>
+                </tr>
+
+                <tr>
+                    <td>Taylor Swift</td>
+                    <td id="score_taylor_swift"></td>
+                </tr>
+
+                <tr>
+                    <td>Tom Cruise</td>
+                    <td id="score_tom_cruise"></td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="./dropzone.min.js"></script>
+<script src="./app.js"></script>
+
+</html>
