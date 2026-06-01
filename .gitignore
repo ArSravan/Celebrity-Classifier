@@ -11,3 +11,6 @@ __pycache__/
 
 echo server/artifacts/ >> .gitignore
 echo *.pkl >> .gitignore
+
+server/artifacts/
+*.pkl
