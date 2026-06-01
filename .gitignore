@@ -1,1 +1,13 @@
-/.venv
+# Python virtual environments
+venv/
+.venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+echo server/artifacts/ >> .gitignore
+echo *.pkl >> .gitignore
